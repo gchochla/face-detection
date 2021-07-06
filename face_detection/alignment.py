@@ -527,7 +527,7 @@ def post_process(
     return dets
 
 
-def batch_detect(net, images, device, is_tensor=False, normalized=False):
+def batch_detect(net, images, device, normalized=False):
     with torch.no_grad():
         confidence_threshold = 0.02
         cfg = cfg_mnet
@@ -535,11 +535,11 @@ def batch_detect(net, images, device, is_tensor=False, normalized=False):
         nms_threshold = 0.4
         keep_top_k = 750
         resize = 1
-        if not is_tensor:
+        if not torch.is_tensor(images):
             try:
                 img = np.float32(images)
             except ValueError:
-                raise NotImplementedError("Input images must of same size")
+                raise NotImplementedError("Input images must be of same size")
             img = torch.from_numpy(img)
         else:
             img = images.float()
