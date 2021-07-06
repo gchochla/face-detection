@@ -39,9 +39,9 @@ class RetinaFace:
             return batch_detect(self.model, np.array(images), self.device)
         elif isinstance(images, torch.Tensor):
             if len(images.shape) == 3:
-                return batch_detect(self.model, images.unsqueeze(0), self.device, True)[0]
+                return batch_detect(self.model, images.unsqueeze(0), self.device)[0]
             elif len(images.shape) == 4:
-                return batch_detect(self.model, images, self.device, True)
+                return batch_detect(self.model, images, self.device)
         else:
             raise NotImplementedError()
 
